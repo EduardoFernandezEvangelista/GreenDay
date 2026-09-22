@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login por telefone - Green Day</title>
+<link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body><main class="login-page"><div class="background"></div><div class="login-container">
+<div class="logo"><span>GREEN</span><span>DAY</span></div><div class="login-card">
+<h1>Entrar com telefone</h1><p class="subtitle">Use o telefone cadastrado na sua conta e sua senha.</p>
+<p th:if="${erro}" th:text="${erro}" class="mensagem-erro"></p>
+<form th:action="@{/login/telefone}" method="post">
+<div class="input-group"><label for="telefone">Telefone cadastrado</label><input id="telefone" name="telefone" type="tel" placeholder="(11) 99999-9999" required></div>
+<div class="input-group"><label for="senha">Senha</label><input id="senha" name="senha" type="password" placeholder="Digite sua senha" required></div>
+<button type="submit" class="btn-login">Continuar</button>
+</form><p class="register-text"><a href="/login">Voltar para o login</a></p>
+</div></div></main></body></html>

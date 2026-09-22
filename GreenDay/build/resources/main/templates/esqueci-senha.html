@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueci minha senha - Green Day</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+<main class="login-page">
+    <div class="background"></div>
+    <div class="login-container">
+        <div class="logo"><span>GREEN</span><span>DAY</span></div>
+        <div class="login-card">
+            <h1>Recuperar senha</h1>
+            <p class="subtitle">Digite o e-mail cadastrado para recuperar sua conta.</p>
+            <p th:if="${erro}" th:text="${erro}" class="mensagem-erro"></p>
+            <p th:if="${sucesso}" th:text="${sucesso}" class="mensagem-sucesso"></p>
+
+            <form th:action="@{/esqueci-senha}" method="post">
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input id="email" name="email" type="email" placeholder="Digite seu e-mail" required>
+                </div>
+                <button type="submit" class="btn-login">Recuperar senha</button>
+            </form>
+
+            <div th:if="${linkRecuperacao}" class="recuperacao-link">
+                <p>Em ambiente de desenvolvimento, use este link:</p>
+                <a th:href="${linkRecuperacao}" th:text="${linkRecuperacao}"></a>
+            </div>
+
+            <p class="register-text"><a href="/login">Voltar para o login</a></p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

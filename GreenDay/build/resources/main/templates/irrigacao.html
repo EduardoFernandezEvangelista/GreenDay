@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GreenDay - Irrigacao</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+<main class="container">
+    <h1>Irrigacao</h1>
+    <button id="btn-agendar-irrigacao">+ Agendar irrigacao</button>
+    <table id="tabela-irrigacoes">
+        <thead>
+        <tr><th>Inicio</th><th>Fim</th><th>Volume (L)</th><th>Status</th><th>Acoes</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</main>
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/irrigacao.js}"></script>
+<script th:src="@{/js/nav.js}"></script>
+<script th:src="@{/js/app.js}"></script></body>
+</html>

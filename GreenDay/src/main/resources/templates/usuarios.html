@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários - Green Day</title>
+    <link rel="stylesheet" th:href="@{/css/Usuario.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+<div class="container">
+    <header class="header">
+        <div>
+            <h1>Usuários cadastrados</h1>
+            <p>Gerencie os usuários do Green Day</p>
+        </div>
+        <a th:href="@{/dashboard}" class="btn-voltar">Voltar</a>
+    </header>
+
+    <div th:if="${sucesso}" class="mensagem-sucesso" th:text="${sucesso}"></div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Lista de usuários</h2>
+            <span class="contador" th:text="${#lists.size(usuarios) + ' usuários'}"></span>
+        </div>
+
+        <div class="tabela-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>Perfil</th>
+                    <th>Status</th>
+                    <th>Cadastro</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.id}">1</td>
+                    <td th:text="${usuario.nome}">Walter</td>
+                    <td th:text="${usuario.email}">email@email.com</td>
+                    <td th:text="${usuario.telefone != null && !usuario.telefone.isBlank() ? usuario.telefone : '-'}">-</td>
+                    <td><span class="role" th:text="${usuario.role}">PRODUTOR</span></td>
+                    <td>
+                        <span th:class="${usuario.ativo ? 'status ativo' : 'status inativo'}"
+                              th:text="${usuario.ativo ? 'Ativo' : 'Inativo'}">Ativo</span>
+                    </td>
+                    <td th:text="${usuario.criadoEm != null ? #temporals.format(usuario.criadoEm, 'dd/MM/yyyy HH:mm') : '-'}">-</td>
+                    <td class="acoes">
+                        <a class="btn-editar" th:href="@{/usuarios/editar/{id}(id=${usuario.id})}">Editar</a>
+
+                        <form th:if="${usuario.ativo}" th:action="@{/usuarios/desativar/{id}(id=${usuario.id})}" method="post" class="form-acao">
+                            <button type="submit" class="btn-desativar"
+                                    onclick="return confirm('Desativar este usuário?')">Desativar</button>
+                        </form>
+
+                        <form th:unless="${usuario.ativo}" th:action="@{/usuarios/ativar/{id}(id=${usuario.id})}" method="post" class="form-acao">
+                            <button type="submit" class="btn-ativar"
+                                    onclick="return confirm('Ativar este usuário?')">Ativar</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(usuarios)}">
+                    <td colspan="8" class="vazio">Nenhum usuário cadastrado.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/nav.js}"></script>
+<script th:src="@{/js/app.js}"></script></body>
+</html>

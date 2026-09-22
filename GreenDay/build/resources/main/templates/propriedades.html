@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GreenDay | Propriedades</title><link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+<nav th:replace="~{fragments/nav :: nav}"></nav>
+<main class="container page-propriedades">
+  <section class="page-hero">
+    <div><span class="eyebrow-page">GESTÃO AGRÍCOLA</span><h1>Minhas propriedades</h1>
+    <p>Cadastre, organize e selecione o campo que deseja acompanhar. Todas as outras áreas do sistema trabalham a partir da propriedade escolhida.</p></div>
+    <button id="btn-nova-propriedade" class="btn-primary">＋ Cadastrar propriedade</button>
+  </section>
+  <section class="property-stats">
+    <div class="mini-stat"><span>🏡</span><div><b id="stat-total">0</b><small>Propriedades</small></div></div>
+    <div class="mini-stat"><span>🌱</span><div><b id="stat-area">0 ha</b><small>Área cadastrada</small></div></div>
+    <div class="mini-stat"><span>📍</span><div><b id="stat-cidades">0</b><small>Localidades</small></div></div>
+  </section>
+  <section class="toolbar">
+    <div class="search-box"><span>⌕</span><input id="busca-propriedade" placeholder="Buscar por nome, cidade ou estado..."></div>
+    <span id="contador-propriedades" class="counter"></span>
+  </section>
+  <div id="loading-propriedades" class="loading-inline"><span></span> Carregando suas propriedades...</div>
+  <div id="lista-propriedades" class="property-grid"></div>
+  <div id="vazio-propriedades" class="empty-state hidden">
+    <div class="empty-icon">🌿</div><h2>Seu campo começa aqui</h2>
+    <p>Você ainda não cadastrou nenhuma propriedade. Crie a primeira para começar a usar sensores, culturas, clima e irrigação.</p>
+    <button id="btn-primeira-propriedade">Cadastrar minha primeira propriedade</button>
+  </div>
+</main>
+
+<div id="modal-propriedade" class="modal-backdrop hidden" aria-hidden="true">
+ <div class="modal-card modal-large">
+  <div class="modal-head"><div><span class="eyebrow-page" id="modal-tipo">NOVA PROPRIEDADE</span><h2 id="modal-titulo">Cadastrar propriedade</h2></div><button class="modal-close" type="button" data-close="modal-propriedade">×</button></div>
+  <p class="modal-description">Preencha os dados principais. Você poderá editar tudo depois.</p>
+  <form id="form-propriedade">
+   <input type="hidden" id="propriedade-id">
+   <div class="form-section"><h3>Informações principais</h3>
+    <div class="form-grid">
+      <div class="field-full"><label for="prop-nome">Nome da propriedade <b>*</b></label><input id="prop-nome" required maxlength="120" placeholder="Ex.: Fazenda Boa Esperança"></div>
+      <div><label for="prop-area">Área (hectares)</label><input id="prop-area" type="number" min="0" step="0.01" placeholder="Ex.: 25.5"></div>
+      <div><label for="prop-estado">Estado</label><input id="prop-estado" maxlength="60" placeholder="Ex.: São Paulo"></div>
+      <div><label for="prop-cidade">Cidade</label><input id="prop-cidade" maxlength="80" placeholder="Ex.: São Roque"></div>
+      <div class="field-full"><label for="prop-endereco">Endereço / localização</label><input id="prop-endereco" maxlength="180" placeholder="Estrada, bairro ou referência"></div>
+      <div class="field-full"><label for="prop-descricao">Descrição</label><textarea id="prop-descricao" maxlength="500" placeholder="Conte um pouco sobre a propriedade, produção ou objetivos..."></textarea></div>
+    </div>
+   </div>
+   <details class="coordinates" id="coordinates-box">
+    <summary>🗺️ Localização da propriedade</summary>
+    <div class="location-intro">
+      <div><b>📍 Preencha automaticamente</b><span>Use a localização atual do dispositivo. Você também pode ajustar os dados manualmente.</span></div>
+      <button type="button" class="btn-location" id="btn-usar-localizacao">📍 Usar minha localização</button>
+    </div>
+    <div id="location-status" class="location-status hidden" role="status"></div>
+    <div class="form-grid coords-grid">
+      <div><label for="prop-latitude">Latitude</label><input id="prop-latitude" type="number" step="any" min="-90" max="90" placeholder="Ex.: -23.5505"></div>
+      <div><label for="prop-longitude">Longitude</label><input id="prop-longitude" type="number" step="any" min="-180" max="180" placeholder="Ex.: -46.6333"></div>
+      <div class="field-full"><label for="prop-altitude">Altitude (metros) <small>opcional</small></label><input id="prop-altitude" type="number" step="any" placeholder="Ex.: 650"></div>
+    </div>
+    <p class="location-help">💡 A localização funciona em <b>localhost</b> e em sites com <b>HTTPS</b>. O navegador sempre pedirá sua permissão.</p>
+   </details>
+   <div class="modal-actions"><button type="button" class="btn-secondary" data-close="modal-propriedade">Cancelar</button><button type="submit" class="btn-primary" id="btn-salvar-propriedade">Salvar propriedade 🌿</button></div>
+  </form>
+ </div>
+</div>
+<div id="toast" class="toast hidden"></div>
+<script th:src="@{/js/common.js}"></script><script th:src="@{/js/propriedades.js}"></script><script th:src="@{/js/nav.js}"></script><script th:src="@{/js/app.js}"></script>
+</body></html>
